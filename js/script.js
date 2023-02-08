@@ -12,6 +12,7 @@ firebase.initializeApp(firebaseConfig);
 
 // Reference to the Firebase Realtime Database
 let database = firebase.database();
+let gameCode = "";
 
 // Generate a random alphanumeric variable of length 4
 function generateRandomVariable() {
@@ -30,7 +31,33 @@ function sendToFirebase(randomVariable) {
 
 // Handle the "Generate" button click event
 document.getElementById("generate-btn").addEventListener("click", function() {
-    let randomVariable = generateRandomVariable();
-    sendToFirebase(randomVariable);
-    console.log("Generated random variable: " + randomVariable);
+    if (gameCode !== "") {
+        database.ref("Games").child(gameCode).remove();
+    }
+    gameCode = generateRandomVariable();
+
+    sendToFirebase(gameCode);
+    console.log("Generated random variable: " + gameCode);
+    document.getElementById("generated-code").innerHTML = "<b>" + gameCode + "</b>";
+    getUsers();
 });
+
+const getUsers = () => {
+    const usersRef = firebase.database().ref(`Games/${gameCode}`);
+    usersRef.on("value", (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        let users = '';
+        for (const gameCode in data) {
+            for (const user in data[gameCode]) {
+                users += `<p>${user}</p>`;
+            }
+        }
+        document.getElementById("users").innerHTML = users;
+    });
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    getUsers();
+})
