@@ -43,20 +43,19 @@ document.getElementById("generate-btn").addEventListener("click", function() {
 });
 
 const getUsers = () => {
-    const usersRef = firebase.database().ref(`Games/${gameCode}`);
+    const usersRef = firebase.database().ref(`Games/${gameCode}/Participants`);
     usersRef.on("value", (snapshot) => {
         const data = snapshot.val();
         console.log(data);
         let users = '';
-        for (const gameCode in data) {
-            for (const user in data[gameCode]) {
-                users += `<p>${user}</p>`;
-            }
+        for (const user in data) {
+            users += `<p>${user}</p>`;
         }
         document.getElementById("users").innerHTML = users;
     });
+};
 
-}
+
 
 document.addEventListener("DOMContentLoaded", () => {
     getUsers();
