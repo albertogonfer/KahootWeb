@@ -1,0 +1,57 @@
+/* center and bold the title */
+h1 {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* style the button */
+#generate-btn {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: lightskyblue;
+    color: white;
+    display: block;
+    margin: 20px auto;
+}
+
+#generate-btn:hover {
+    background-color: dodgerblue;
+    cursor: pointer;
+}
+
+/* style the user box */
+#users {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+.user {
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(20% - 20px);
+}
+
+@media (max-width: 767px) {
+    .user {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 575px) {
+    .user {
+        width: calc(100% - 20px);
+    }
+}
+
+#generated-code {
+    margin: 20px auto;
+    text-align: center;
+}
