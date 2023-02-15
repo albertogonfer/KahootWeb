@@ -43,13 +43,13 @@ document.getElementById("generate-btn").addEventListener("click", function() {
 });
 
 const getUsers = () => {
-    const usersRef = firebase.database().ref(`Games/${gameCode}/Participants`);
+    const usersRef = firebase.database().ref(`Games/${gameCode}/Users/`);
     usersRef.on("value", (snapshot) => {
         const data = snapshot.val();
         console.log(data);
         let users = '';
         for (const user in data) {
-            users += `<p>${user}</p>`;
+            users += `<p style="margin: 5px">${user}</p>`;
         }
         document.getElementById("users").innerHTML = users;
     });
